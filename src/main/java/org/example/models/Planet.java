@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,7 +17,11 @@ import java.util.List;
 @Table(name = "planet")
 public class Planet {
     @Id
-    String id;
+    private String id;
     @Column(name = "name")
-    String name;
+    private String name;
+    @OneToMany(mappedBy = "fromPlanet", cascade = CascadeType.ALL)
+    private Set<Ticket> fromPlanet;
+    @OneToMany(mappedBy = "toPlanet", cascade = CascadeType.ALL)
+    private Set<Ticket> toPlanet;
 }

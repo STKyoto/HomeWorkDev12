@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,7 +17,9 @@ import lombok.NoArgsConstructor;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
     @Column(name = "name")
-    String name;
+    private String name;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets;
 }

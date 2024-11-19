@@ -22,14 +22,22 @@ public class Ticket {
     @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Column(name = "client_id", nullable = false)
-    private Long clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "from_planet_id", referencedColumnName = "id", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "from_planet_id", referencedColumnName = "id", nullable = false)
     private Planet fromPlanet;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "to_planet_id", referencedColumnName = "id", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "to_planet_id", referencedColumnName = "id", nullable = false)
     private Planet toPlanet;
+
+    public Ticket(LocalDateTime time, Client client, Planet fromPlanet, Planet toPlanet) {
+        createdAt = time;
+        this.client = client;
+        this.fromPlanet = fromPlanet;
+        this.toPlanet = toPlanet;
+    }
 }
